@@ -1,7 +1,9 @@
 import 'dart:async';
-
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:notes/utils/functions/app_functions.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../data/local/storage_repository.dart';
@@ -24,9 +26,12 @@ class _EnterPinScreenState extends State<EnterPinScreen> {
 
   StreamController<ErrorAnimationType>? errorController;
 
+  final LocalAuthentication auth = LocalAuthentication();
+
   bool hasError = false;
   String pin = '';
   int enterCount = 0;
+  bool platformError = false;
 
   @override
   void initState() {
@@ -39,6 +44,20 @@ class _EnterPinScreenState extends State<EnterPinScreen> {
   void dispose() {
     errorController!.close();
     super.dispose();
+  }
+
+  Future<bool> _authenticate() async {
+    try {
+      return await auth.authenticate(
+        localizedReason: 'Let OS determine authentication method',
+        options: const AuthenticationOptions(
+          stickyAuth: true,
+        ),
+      );
+    } on PlatformException catch (e) {
+      platformError = true;
+      return false;
+    }
   }
 
   @override
@@ -68,6 +87,7 @@ class _EnterPinScreenState extends State<EnterPinScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.w),
                 child: PinCodeTextField(
+                  autoFocus: true,
                   focusNode: focusNode,
                   onCompleted: (v) async {
                     if (v != pin) {
@@ -97,12 +117,16 @@ class _EnterPinScreenState extends State<EnterPinScreen> {
                   animationType: AnimationType.fade,
                   pinTheme: PinTheme(
                     shape: PinCodeFieldShape.box,
-                    borderRadius: BorderRadius.circular(8.w),
+                    borderRadius: BorderRadius.circular(6.w),
                     fieldHeight: 40.w,
                     fieldWidth: 30.w,
-                    inactiveColor: Colors.blue,
-                    inactiveFillColor: Colors.white,
-                    activeFillColor: Colors.white,
+                    activeColor: Colors.white30,
+                    inactiveColor: Colors.transparent,
+                    inactiveFillColor: Colors.white38,
+                    selectedColor: Colors.white60,
+                    activeFillColor: Colors.white38,
+                    selectedFillColor: Colors.white70,
+                    errorBorderColor: Colors.redAccent,
                   ),
                   cursorColor: Colors.black,
                   animationDuration: const Duration(milliseconds: 300),
@@ -135,12 +159,25 @@ class _EnterPinScreenState extends State<EnterPinScreen> {
                     focusNode.unfocus();
                     await Future.delayed(const Duration(milliseconds: 300));
                     if (!context.mounted) return;
-                    alertDialog(context, () {
-                      StorageRepository.deleteString(key: 'pin');
-                      Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          RouteNames.setPinRoute,
-                          (Route<dynamic> route) => false);
+                    alertDialog(context, () async {
+                      bool authenticated = await _authenticate();
+                      if (authenticated) {
+                        StorageRepository.deleteString(key: 'pin');
+                        if (!context.mounted) return;
+                        Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            RouteNames.setPinRoute,
+                            (Route<dynamic> route) => false);
+                      }else if(platformError){
+                        if (!context.mounted) return;
+                        showSnackbar(context, 'Set a phone screen lock!');
+
+                        AppSettings.openAppSettings(type: AppSettingsType.lockAndPassword);
+
+                      }else{
+                      if (!context.mounted) return;
+                      showSnackbar(context, 'Incorrect Password, try again!');
+                      }
                     });
                   },
                   child: Text(

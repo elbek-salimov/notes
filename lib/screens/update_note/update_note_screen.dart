@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes/screens/widgets/global_iconbutton.dart';
 
 import '../../bloc/note_bloc.dart';
 import '../../bloc/note_event.dart';
@@ -61,47 +62,23 @@ class _UpdateNoteScreenState extends State<UpdateNoteScreen> {
               padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 20.h),
               child: Row(
                 children: [
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10.w),
+                  GlobalIconButton(
+                    icon: Icons.arrow_back_ios,
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: Ink(
-                      height: 35.w,
-                      width: 35.w,
-                      decoration: BoxDecoration(
-                          color: AppColors.c3B3B3B,
-                          borderRadius: BorderRadius.circular(10.w)),
-                      child: Icon(
-                        Icons.arrow_back_ios_new,
-                        color: Colors.white,
-                        size: 16.w,
-                      ),
-                    ),
                   ),
                   const Spacer(),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10.w),
+                  GlobalIconButton(
+                    icon: Icons.remove_red_eye_outlined,
                     onTap: () {
                       titleFocusNode.unfocus();
                       textFocusNode.unfocus();
                     },
-                    child: Ink(
-                      height: 35.w,
-                      width: 35.w,
-                      decoration: BoxDecoration(
-                          color: AppColors.c3B3B3B,
-                          borderRadius: BorderRadius.circular(10.w)),
-                      child: Icon(
-                        Icons.remove_red_eye_outlined,
-                        color: Colors.white,
-                        size: 16.w,
-                      ),
-                    ),
                   ),
                   20.getW(),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10.w),
+                  GlobalIconButton(
+                    icon: Icons.save_outlined,
                     onTap: () async {
                       titleFocusNode.unfocus();
                       textFocusNode.unfocus();
@@ -131,23 +108,19 @@ class _UpdateNoteScreenState extends State<UpdateNoteScreen> {
                         },
                       );
                     },
-                    child: Ink(
-                      height: 35.w,
-                      width: 35.w,
-                      decoration: BoxDecoration(
-                          color: AppColors.c3B3B3B,
-                          borderRadius: BorderRadius.circular(10.w)),
-                      child: Icon(
-                        Icons.save_outlined,
-                        color: Colors.white,
-                        size: 16.w,
-                      ),
-                    ),
                   ),
                 ],
               ),
             ),
-            20.getH(),
+            15.getH(),
+            Divider(
+              color: Colors.white,
+              indent: 15.w,
+              endIndent: 15.w,
+              thickness: 1.h,
+              height: 0,
+            ),
+            5.getH(),
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -177,6 +150,7 @@ class _UpdateNoteScreenState extends State<UpdateNoteScreen> {
                         ),
                       ),
                       TextField(
+                        autofocus: true,
                         focusNode: textFocusNode,
                         controller: textController,
                         maxLines: null,

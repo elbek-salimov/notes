@@ -35,76 +35,159 @@ aboutMeDialog({required BuildContext context}) {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       30.getH(),
-                      Text(
-                        'Elbek Salimov',
-                        textAlign: TextAlign.center,
-                        style: AppTextStyles.nunitoSemiBold.copyWith(
-                          fontSize: 24,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Elbek Salimov',
+                            textAlign: TextAlign.center,
+                            style: AppTextStyles.nunitoSemiBold.copyWith(
+                              fontSize: 24,
+                            ),
+                          ),
+                          5.getW(),
+                          const Icon(
+                            Icons.verified,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                      10.getH(),
+                      GestureDetector(
+                        onTap: (){
+                          launchUrl(
+                              Uri.parse("https://t.me/Elbek_Salimov"));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 10.h),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(14.w),
+                            ),
+                            color: const Color(0xFF2c3135),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0.06),
+                                offset: const Offset(-10, -10),
+                                spreadRadius: 0,
+                                blurRadius: 10,
+                              ),
+                              BoxShadow(
+                                color:
+                                Colors.black87.withOpacity(0.3),
+                                offset: const Offset(10, 10),
+                                spreadRadius: 0,
+                                blurRadius: 10,
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Image.asset(AppImages.telegram, height: 25.w),
+                              10.getW(),
+                              Text(
+                                'Telegram',
+                                style: AppTextStyles.nunitoRegular.copyWith(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      7.getH(),
+                      GestureDetector(
+                        onTap: (){
+                          launchUrl(Uri.parse(
+                              "https://github.com/elbek-salimov"));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 10.h),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(14.w),
+                            ),
+                            color: const Color(0xFF2c3135),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0.06),
+                                offset: const Offset(-10, -10),
+                                spreadRadius: 0,
+                                blurRadius: 10,
+                              ),
+                              BoxShadow(
+                                color:
+                                Colors.black87.withOpacity(0.3),
+                                offset: const Offset(10, 10),
+                                spreadRadius: 0,
+                                blurRadius: 10,
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Image.asset(AppImages.github, height: 25.w),
+                              10.getW(),
+                              Text(
+                                'GitHub',
+                                style: AppTextStyles.nunitoRegular.copyWith(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      7.getH(),
+                      GestureDetector(
+                        onTap: (){
+                          launchUrl(Uri.parse(
+                              "https://www.linkedin.com/in/elbek-salimov/"));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 10.h),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(14.w),
+                            ),
+                            color: const Color(0xFF2c3135),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0.06),
+                                offset: const Offset(-10, -10),
+                                spreadRadius: 0,
+                                blurRadius: 10,
+                              ),
+                              BoxShadow(
+                                color:
+                                Colors.black87.withOpacity(0.3),
+                                offset: const Offset(10, 10),
+                                spreadRadius: 0,
+                                blurRadius: 10,
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Image.asset(AppImages.linkedin, height: 25.w),
+                              10.getW(),
+                              Text(
+                                'LinkedIn',
+                                style: AppTextStyles.nunitoRegular.copyWith(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       10.getH(),
-                      Row(
-                        children: [
-                          Image.asset(AppImages.telegram, height: 25.w),
-                          5.getW(),
-                          TextButton(
-                            onPressed: () {
-                              launchUrl(
-                                  Uri.parse("https://t.me/Elbek_Salimov"));
-                            },
-                            child: Text(
-                              'Telegram',
-                              style: AppTextStyles.nunitoRegular.copyWith(
-                                fontSize: 18,
-                                color: Colors.blue,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      5.getH(),
-                      Row(
-                        children: [
-                          Image.asset(AppImages.github, height: 25.w),
-                          5.getW(),
-                          TextButton(
-                            onPressed: () {
-                              launchUrl(Uri.parse(
-                                  "https://github.com/elbek-salimov"));
-                            },
-                            child: Text(
-                              'GitHub',
-                              style: AppTextStyles.nunitoRegular.copyWith(
-                                fontSize: 18,
-                                color: Colors.blue,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      5.getH(),
-                      Row(
-                        children: [
-                          Image.asset(AppImages.linkedin, height: 25.w),
-                          5.getW(),
-                          TextButton(
-                            onPressed: () {
-                              launchUrl(Uri.parse(
-                                  "https://www.linkedin.com/in/elbek-salimov/"));
-                            },
-                            child: Text(
-                              'LinkedIn',
-                              style: AppTextStyles.nunitoRegular.copyWith(
-                                fontSize: 18,
-                                color: Colors.blue,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop();

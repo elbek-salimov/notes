@@ -25,6 +25,7 @@ class _SetPinScreenState extends State<SetPinScreen> {
   bool hasError = false;
   bool pinEntered = false;
   String firstPin = '';
+  int enterCount = 0;
 
   @override
   void initState() {
@@ -64,7 +65,7 @@ class _SetPinScreenState extends State<SetPinScreen> {
               5.getH(),
               Text(
                 'We use state of art the security measures to'
-                ' protect your information at all times',
+                    ' protect your information at all times',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 14.w,
@@ -79,17 +80,24 @@ class _SetPinScreenState extends State<SetPinScreen> {
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   appContext: context,
                   length: 4,
+                  autoFocus: true,
+                  autoDismissKeyboard: false,
                   obscureText: true,
                   obscuringCharacter: '*',
                   blinkWhenObscuring: true,
                   animationType: AnimationType.fade,
                   pinTheme: PinTheme(
                     shape: PinCodeFieldShape.box,
-                    borderRadius: BorderRadius.circular(8.w),
+                    borderRadius: BorderRadius.circular(6.w),
                     fieldHeight: 40.w,
                     fieldWidth: 30.w,
-                    inactiveFillColor: Colors.white,
-                    activeFillColor: Colors.white,
+                    activeColor: Colors.white30,
+                    inactiveColor: Colors.transparent,
+                    inactiveFillColor: Colors.white38,
+                    selectedColor: Colors.white60,
+                    activeFillColor: Colors.white38,
+                    selectedFillColor: Colors.white70,
+                    errorBorderColor: Colors.redAccent,
                   ),
                   cursorColor: Colors.black,
                   animationDuration: const Duration(milliseconds: 300),
@@ -116,7 +124,7 @@ class _SetPinScreenState extends State<SetPinScreen> {
               ),
               10.getH(),
               SizedBox(
-                width: width - 200,
+                width: width - 100,
                 height: 35.h,
                 child: TextButton(
                   style: TextButton.styleFrom(
@@ -141,10 +149,11 @@ class _SetPinScreenState extends State<SetPinScreen> {
                         Navigator.pushNamedAndRemoveUntil(
                             context,
                             RouteNames.homeRoute,
-                            (Route<dynamic> route) => false);
+                                (Route<dynamic> route) => false);
                       } else {
                         errorController!.add(ErrorAnimationType.shake);
                         setState(() => hasError = true);
+                        enterCount++;
                         textEditingController.clear();
                       }
                     } else {
@@ -164,6 +173,26 @@ class _SetPinScreenState extends State<SetPinScreen> {
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
+                    ),
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: enterCount >= 2,
+                child: TextButton(
+                  onPressed: ()  {
+                    setState(() {
+                      firstPin = '';
+                      pinEntered = false;
+                      hasError = false;
+                      enterCount = 0;
+                    });
+                  },
+                  child: Text(
+                    'Reset',
+                    style: TextStyle(
+                      fontSize: 12.w,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),

@@ -43,8 +43,8 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     )..repeat(reverse: true);
 
     _colorAnimation1 = ColorTween(
-      begin: const Color(0xFF2F2F2F),
-      end: const Color(0xFFFFCB74),
+      begin: const Color(0xFF262325),
+      end: const Color(0xFF245C73),
     ).animate(_animationController);
 
     _colorAnimation2 = ColorTween(

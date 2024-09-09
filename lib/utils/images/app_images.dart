@@ -4,7 +4,6 @@ class AppImages {
 
   // jpg
   static String splash = 'assets/images/splash.jpg';
-  static String background = 'assets/images/background.jpg';
 
   // png
   static String intro = 'assets/images/intro.png';

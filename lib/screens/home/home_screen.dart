@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:notes/screens/widgets/global_iconbutton.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../bloc/note_bloc.dart';
@@ -86,58 +87,42 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  left: 24.w, right: 24.w, top: 20.h, bottom: 10.h),
+                  left: 24.w, right: 24.w, top: 10.h, bottom: 5.h),
               child: Row(
                 children: [
                   const Text('Notes', style: AppTextStyles.nunitoSemiBold),
                   const Spacer(),
                   Semantics(
                     label: 'Navigate to search screen',
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(10.w),
+                    child: GlobalIconButton(
+                      icon: Icons.search,
                       onTap: () {
                         Navigator.pushNamed(
                             context, RouteNames.searchNoteRoute);
                       },
-                      child: Ink(
-                        height: 35.w,
-                        width: 35.w,
-                        decoration: BoxDecoration(
-                            color: AppColors.c3B3B3B,
-                            borderRadius: BorderRadius.circular(10.w)),
-                        child: Icon(
-                          Icons.search,
-                          color: Colors.white,
-                          size: 16.w,
-                        ),
-                      ),
                     ),
                   ),
                   20.getW(),
                   Semantics(
                     label: 'About developer',
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(10.w),
+                    child: GlobalIconButton(
+                      icon: Icons.error_outline,
                       onTap: () {
                         aboutMeDialog(context: context);
                       },
-                      child: Ink(
-                        height: 35.w,
-                        width: 35.w,
-                        decoration: BoxDecoration(
-                            color: AppColors.c3B3B3B,
-                            borderRadius: BorderRadius.circular(10.w)),
-                        child: Icon(
-                          Icons.error_outline,
-                          color: Colors.white,
-                          size: 16.w,
-                        ),
-                      ),
                     ),
                   ),
                 ],
               ),
             ),
+            Divider(
+              color: Colors.white,
+              indent: 15.w,
+              endIndent: 15.w,
+              thickness: 1.h,
+              height: 0,
+            ),
+            5.getH(),
             BlocBuilder<NoteBloc, NoteState>(
               builder: (context, state) {
                 if (state is NotesLoadingState) {
@@ -210,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                       .format(note.time);
                               return Padding(
                                 padding: EdgeInsets.symmetric(
-                                    vertical: 10.h, horizontal: 15.w),
+                                    vertical: 10.h, horizontal: 20.w),
                                 child: GestureDetector(
                                   onTap: () {
                                     Navigator.pushNamed(
@@ -222,25 +207,29 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                         });
                                   },
                                   child: Container(
-                                    width: double.infinity,
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 15.w, vertical: 10.h),
                                     decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          colorFilter: ColorFilter.mode(
-                                              Colors.black.withOpacity(0.6),
-                                              BlendMode.colorBurn),
-                                          image:
-                                              AssetImage(AppImages.background),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(14.w),
+                                      ),
+                                      color: const Color(0xFF2c3135),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.white.withOpacity(0.06),
+                                          offset: const Offset(-10, -10),
+                                          spreadRadius: 0,
+                                          blurRadius: 10,
                                         ),
-                                        borderRadius: BorderRadius.circular(16),
-                                        border: Border.all(
-                                          color: note.color,
+                                        BoxShadow(
+                                          color:
+                                              Colors.black87.withOpacity(0.3),
+                                          offset: const Offset(10, 10),
+                                          spreadRadius: 0,
+                                          blurRadius: 10,
                                         ),
-                                        boxShadow: [
-                                          BoxShadow(blurRadius: 10.w)
-                                        ]),
+                                      ],
+                                    ),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -272,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                           formattedDate,
                                           style: AppTextStyles.nunitoRegular
                                               .copyWith(
-                                            color: Colors.white70,
+                                            color: AppColors.cf1da95,
                                             fontSize: 10.w,
                                           ),
                                         ),
@@ -292,11 +281,33 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.c3B3B3B,
+        backgroundColor: AppColors.c252525,
+        elevation: 0,
         onPressed: () {
           Navigator.pushNamed(context, RouteNames.addNoteRoute);
         },
-        child: const Icon(Icons.add),
+        child: Container(
+          padding: EdgeInsets.all(10.w),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(100),
+            ),
+            color: const Color(0xFF2c3135),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.white.withOpacity(0.09),
+                offset: const Offset(-8, 0),
+                blurRadius: 10,
+              ),
+              BoxShadow(
+                color: Colors.black87.withOpacity(0.5),
+                offset: const Offset(7, 7),
+                blurRadius: 10,
+              ),
+            ],
+          ),
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

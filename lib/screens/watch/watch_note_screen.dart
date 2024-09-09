@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes/screens/widgets/global_iconbutton.dart';
 
 import '../../bloc/note_bloc.dart';
 import '../../bloc/note_event.dart';
@@ -34,27 +35,13 @@ class WatchNoteScreen extends StatelessWidget {
               padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 20.h),
               child: Row(
                 children: [
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10.w),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Ink(
-                      height: 35.w,
-                      width: 35.w,
-                      decoration: BoxDecoration(
-                          color: AppColors.c3B3B3B,
-                          borderRadius: BorderRadius.circular(10.w)),
-                      child: Icon(
-                        Icons.arrow_back_ios_new,
-                        color: Colors.white,
-                        size: 16.w,
-                      ),
-                    ),
+                  GlobalIconButton(
+                    icon: Icons.arrow_back_ios,
+                    onTap: () => Navigator.pop(context),
                   ),
                   const Spacer(),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10.w),
+                  GlobalIconButton(
+                    icon: Icons.delete_outline,
                     onTap: () {
                       deleteDialog(context, () {
                         context
@@ -64,44 +51,28 @@ class WatchNoteScreen extends StatelessWidget {
                             .popUntil((route) => route.isFirst);
                       });
                     },
-                    child: Ink(
-                      height: 35.w,
-                      width: 35.w,
-                      decoration: BoxDecoration(
-                          color: AppColors.c3B3B3B,
-                          borderRadius: BorderRadius.circular(10.w)),
-                      child: Icon(
-                        Icons.delete_outline,
-                        color: Colors.red,
-                        size: 16.w,
-                      ),
-                    ),
                   ),
                   20.getW(),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10.w),
+                  GlobalIconButton(
+                    icon: Icons.edit_outlined,
                     onTap: () {
                       Navigator.pushReplacementNamed(
                           context, RouteNames.updateNoteRoute,
                           arguments: {'id': id, 'title': title, 'text': text});
                     },
-                    child: Ink(
-                      height: 35.w,
-                      width: 35.w,
-                      decoration: BoxDecoration(
-                          color: AppColors.c3B3B3B,
-                          borderRadius: BorderRadius.circular(10.w)),
-                      child: Icon(
-                        Icons.create_outlined,
-                        color: Colors.white,
-                        size: 16.w,
-                      ),
-                    ),
                   ),
                 ],
               ),
             ),
-            20.getH(),
+            15.getH(),
+            Divider(
+              color: Colors.white,
+              indent: 15.w,
+              endIndent: 15.w,
+              thickness: 1.h,
+              height: 0,
+            ),
+            5.getH(),
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),

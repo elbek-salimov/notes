@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes/screens/widgets/global_iconbutton.dart';
 
 import '../../bloc/note_bloc.dart';
 import '../../bloc/note_event.dart';
@@ -45,49 +46,25 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
               padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 20.h),
               child: Row(
                 children: [
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10.w),
+                  GlobalIconButton(
+                    icon: Icons.arrow_back_ios,
                     onTap: () {
                       titleFocusNode.unfocus();
                       textFocusNode.unfocus();
                       Navigator.pop(context);
                     },
-                    child: Ink(
-                      height: 35.w,
-                      width: 35.w,
-                      decoration: BoxDecoration(
-                          color: AppColors.c3B3B3B,
-                          borderRadius: BorderRadius.circular(10.w)),
-                      child: Icon(
-                        Icons.arrow_back_ios_new,
-                        color: Colors.white,
-                        size: 16.w,
-                      ),
-                    ),
                   ),
                   const Spacer(),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10.w),
+                  GlobalIconButton(
+                    icon: Icons.remove_red_eye_outlined,
                     onTap: () {
                       titleFocusNode.unfocus();
                       textFocusNode.unfocus();
                     },
-                    child: Ink(
-                      height: 35.w,
-                      width: 35.w,
-                      decoration: BoxDecoration(
-                          color: AppColors.c3B3B3B,
-                          borderRadius: BorderRadius.circular(10.w)),
-                      child: Icon(
-                        Icons.remove_red_eye_outlined,
-                        color: Colors.white,
-                        size: 16.w,
-                      ),
-                    ),
                   ),
                   20.getW(),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10.w),
+                  GlobalIconButton(
+                    icon: Icons.save_outlined,
                     onTap: () async {
                       titleFocusNode.unfocus();
                       textFocusNode.unfocus();
@@ -113,23 +90,19 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                         },
                       );
                     },
-                    child: Ink(
-                      height: 35.w,
-                      width: 35.w,
-                      decoration: BoxDecoration(
-                          color: AppColors.c3B3B3B,
-                          borderRadius: BorderRadius.circular(10.w)),
-                      child: Icon(
-                        Icons.save_outlined,
-                        color: Colors.white,
-                        size: 16.w,
-                      ),
-                    ),
-                  ),
+                  )
                 ],
               ),
             ),
-            20.getH(),
+            15.getH(),
+            Divider(
+              color: Colors.white,
+              indent: 15.w,
+              endIndent: 15.w,
+              thickness: 1.h,
+              height: 0,
+            ),
+            5.getH(),
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -140,6 +113,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                     children: [
                       10.getH(),
                       TextField(
+                        autofocus: true,
                         focusNode: titleFocusNode,
                         controller: titleController,
                         maxLines: null,

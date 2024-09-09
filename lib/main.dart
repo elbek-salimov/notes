@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/data/local/storage_repository.dart';
 
@@ -9,6 +10,10 @@ import 'screens/routes.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   StorageRepository.instance;
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   runApp(
     MultiBlocProvider(
