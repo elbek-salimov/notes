@@ -129,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   return Expanded(
                     child: ListView(
                       children: [
-                        ...List.generate(10, (index) {
+                        ...List.generate(5, (index) {
                           return Shimmer.fromColors(
                             baseColor: Colors.black12,
                             highlightColor: Colors.white70,

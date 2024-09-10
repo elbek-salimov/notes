@@ -1,5 +1,3 @@
-import 'dart:math';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../data/local/local_database.dart';
@@ -16,21 +14,12 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
     on<SearchNoteEvent>(_searchNote);
   }
 
-  Color generateRandomColor() {
-    Random random = Random();
-    int r = random.nextInt(256);
-    int g = random.nextInt(256);
-    int b = random.nextInt(256);
-    return Color.fromRGBO(r, g, b, 1);
-  }
-
   Future<void> _insertNotes(
     AddNotesEvent event,
     Emitter<NoteState> emit,
   ) async {
-    Color color = generateRandomColor();
-    LocalDatabase.insertNote(NoteModel(
-        title: event.title, text: event.text, color: color, time: event.time));
+    LocalDatabase.insertNote(
+        NoteModel(title: event.title, text: event.text, time: event.time));
     add(GetNotesEvent());
   }
 
@@ -38,21 +27,16 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
     UpdateNoteEvent event,
     Emitter<NoteState> emit,
   ) async {
-    Color color = generateRandomColor();
     LocalDatabase.updateNote(
-        NoteModel(
-            title: event.title,
-            text: event.text,
-            color: color,
-            time: event.time),
+        NoteModel(title: event.title, text: event.text, time: event.time),
         event.updateNoteId);
     add(GetNotesEvent());
   }
 
   Future<void> _getNotes(
-    GetNotesEvent event,
-    Emitter<NoteState> emit,
-  ) async {
+      GetNotesEvent event,
+      Emitter<NoteState> emit
+      ) async {
     emit(NotesLoadingState());
     try {
       final notes = await LocalDatabase.getAllNotes();
@@ -61,6 +45,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
       emit(NotesErrorState(errorText: error.toString()));
     }
   }
+
 
   Future<void> _deleteNote(
     DeleteNoteEvent event,

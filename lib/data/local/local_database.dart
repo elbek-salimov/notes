@@ -51,8 +51,7 @@ class LocalDatabase {
       ${NoteModelConstants.id} $idType,
       ${NoteModelConstants.title} $textType,
       ${NoteModelConstants.text} $textType,
-      ${NoteModelConstants.time} $textType,
-      ${NoteModelConstants.color} $textType
+      ${NoteModelConstants.time} $textType
     )''');
   }
 
@@ -61,10 +60,10 @@ class LocalDatabase {
   static Future<NoteModel> insertNote(NoteModel noteModel) async {
     debugPrint("INITIAL ID:${noteModel.id}");
     final db = await databaseInstance.database;
-    int savedTaskID =
+    int savedID =
     await db.insert(NoteModelConstants.tableName, noteModel.toJson());
-    debugPrint("SAVED ID:$savedTaskID");
-    return noteModel.copyWith(id: savedTaskID);
+    debugPrint("SAVED ID:$savedID");
+    return noteModel.copyWith(id: savedID);
   }
 
   static Future<List<NoteModel>> getAllNotes() async {
@@ -108,15 +107,5 @@ class LocalDatabase {
       whereArgs: ["$query%"],
     );
     return json.map((e) => NoteModel.fromJson(e)).toList();
-  }
-
-
-
-
-  void function() {
-    //000000 => Color(0xFF000000)
-    var color = Colors.black;
-    Color(int.parse("000000"));
-    color.value.toString();
   }
 }
