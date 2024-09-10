@@ -52,7 +52,7 @@ class _SetPinScreenState extends State<SetPinScreen> {
           child: Column(
             children: [
               20.getH(),
-              Image.asset(AppImages.security, height: 150.h),
+              Image.asset(AppImages.security, height: 130.h),
               Text(
                 '${pinEntered ? 'Reenter' : 'Set'} your PIN code',
                 style: TextStyle(
@@ -68,15 +68,16 @@ class _SetPinScreenState extends State<SetPinScreen> {
                     ' protect your information at all times',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: 14.w,
+                  fontSize: 12.w,
                   color: Colors.grey,
                 ),
-                textAlign: TextAlign.start,
+                textAlign: TextAlign.center,
               ),
               15.getH(),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.w),
                 child: PinCodeTextField(
+                  enablePinAutofill: false,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   appContext: context,
                   length: 4,

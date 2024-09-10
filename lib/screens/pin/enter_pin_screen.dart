@@ -54,7 +54,7 @@ class _EnterPinScreenState extends State<EnterPinScreen> {
           stickyAuth: true,
         ),
       );
-    } on PlatformException catch (e) {
+    } on PlatformException catch (_) {
       platformError = true;
       return false;
     }
@@ -73,7 +73,7 @@ class _EnterPinScreenState extends State<EnterPinScreen> {
           child: Column(
             children: [
               20.getH(),
-              Image.asset(AppImages.security, height: 150.h),
+              Image.asset(AppImages.security, height: 140.h),
               Text(
                 'Enter your PIN code',
                 style: TextStyle(
@@ -108,6 +108,7 @@ class _EnterPinScreenState extends State<EnterPinScreen> {
                     }
                   },
                   autoDismissKeyboard: false,
+                  enablePinAutofill: false,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   appContext: context,
                   length: 4,

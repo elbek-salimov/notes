@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:notes/utils/styles/app_text_styles.dart';
 
 import '../../data/local/storage_repository.dart';
 import '../../utils/images/app_images.dart';
@@ -13,7 +14,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Color?> _colorAnimation1;
   late Animation<Color?> _colorAnimation2;
@@ -26,9 +28,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     });
     await Future.delayed(const Duration(seconds: 2));
     if (!mounted) return;
-    if(StorageRepository.getString(key: 'pin').isEmpty){
+    if (StorageRepository.getString(key: 'pin').isEmpty) {
       Navigator.pushReplacementNamed(context, RouteNames.setPinRoute);
-    }else{
+    } else {
       Navigator.pushReplacementNamed(context, RouteNames.enterPinRoute);
     }
   }
@@ -87,11 +89,16 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Center(
-            child: AnimatedOpacity(
-              duration: const Duration(seconds: 2),
-              opacity: isVisible ? 1 : 0,
-              child: Image.asset(AppImages.intro),
+          child: AnimatedOpacity(
+            duration: const Duration(seconds: 2),
+            opacity: isVisible ? 1 : 0,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(AppImages.intro),
+                const Text('Notes', style: AppTextStyles.nunitoSemiBold),
+              ],
             ),
           ),
         ),

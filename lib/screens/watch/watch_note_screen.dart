@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/screens/widgets/global_iconbutton.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../bloc/note_bloc.dart';
 import '../../bloc/note_event.dart';
@@ -40,6 +41,13 @@ class WatchNoteScreen extends StatelessWidget {
                     onTap: () => Navigator.pop(context),
                   ),
                   const Spacer(),
+                  GlobalIconButton(
+                    icon: Icons.send,
+                    onTap: () {
+                      Share.share('${title.toUpperCase()} \n\n$text', subject: 'My Notes');
+                    },
+                  ),
+                  20.getW(),
                   GlobalIconButton(
                     icon: Icons.delete_outline,
                     onTap: () {
